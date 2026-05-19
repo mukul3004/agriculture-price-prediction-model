@@ -1,0 +1,127 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #00b09b, #96c93d);
+    padding: 20px;
+}
+
+.container {
+    width: 100%;
+    max-width: 500px;
+    background: #f5f5f5;
+    border-radius: 30px;
+    padding: 35px;
+    text-align: center;
+    box-shadow: 0 10px 35px rgba(0,0,0,0.2);
+}
+
+h1 {
+    font-size: 48px;
+    color: #009688;
+    margin-bottom: 35px;
+    font-weight: 800;
+    line-height: 1.1;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+select,
+input {
+    width: 100%;
+    padding: 18px;
+    border-radius: 18px;
+    border: 3px solid #d6d6d6;
+    font-size: 20px;
+    outline: none;
+    background: white;
+    transition: 0.3s;
+}
+
+select:focus,
+input:focus {
+    border-color: #00b894;
+}
+
+button {
+    width: 100%;
+    padding: 18px;
+    border: none;
+    border-radius: 18px;
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+    background: linear-gradient(135deg, #009688, #3eea74);
+    transition: 0.3s;
+}
+
+button:hover {
+    transform: scale(1.02);
+}
+
+.result-box {
+    margin-top: 28px;
+    padding: 20px;
+    border-radius: 22px;
+    background: #eefaf7;
+    border: 3px solid #b8efe3;
+}
+
+.result-box h2 {
+    font-size: 24px;
+    color: #1d1d1d;
+    font-weight: 700;
+    line-height: 1.5;
+}
+
+.kg-price {
+    margin-top: 12px;
+    font-size: 18px;
+    color: #009688;
+    font-weight: 700;
+}
+
+.footer {
+    margin-top: 20px;
+    font-size: 16px;
+    color: #777;
+}
+
+@media (max-width: 768px) {
+
+    .container {
+        padding: 25px 18px;
+    }
+
+    h1 {
+        font-size: 38px;
+    }
+
+    select,
+    input,
+    button {
+        font-size: 18px;
+        padding: 16px;
+    }
+
+    .result-box h2 {
+        font-size: 20px;
+    }
+
+    .kg-price {
+        font-size: 16px;
+    }
+}
