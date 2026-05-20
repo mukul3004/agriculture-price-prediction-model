@@ -10,7 +10,9 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>Commodity Price Prediction</title>
+    <title>
+        Commodity Price Prediction
+    </title>
 
     <link
         rel="stylesheet"
@@ -20,6 +22,33 @@
 </head>
 
 <body>
+    <div class="navbar">
+
+    <div class="logo">
+
+        🌾 AgriPredict AI
+
+    </div>
+
+    <div class="nav-links">
+
+    <a href="#home">
+        Home
+    </a>
+
+    <a href="#prediction">
+        Prediction
+    </a>
+
+    <a href="#about">
+        About
+    </a>
+
+</div>
+
+</div>
+
+<section id="home"></section>
 
     <div class="container">
 
@@ -29,56 +58,205 @@
 
         </h1>
 
+        <div class="ai-badge">
+
+            AI/ML Powered LSTM Prediction System
+
+        </div>
+        <section id="home"></section>
+
+        <p class="subtitle">
+
+            Predict future agricultural commodity prices
+            using PyTorch Deep Learning
+
+        </p>
+        <div class="stats-container">
+
+    <div class="stat-card">
+
+        <h2>
+            6+
+        </h2>
+
+        <p>
+            Commodities
+        </p>
+
+    </div>
+
+    <div class="stat-card">
+
+        <h2>
+            AI
+        </h2>
+
+        <p>
+            LSTM Model
+        </p>
+
+    </div>
+
+    <div class="stat-card">
+
+        <h2>
+            95%
+        </h2>
+
+        <p>
+            Short-Term Accuracy
+        </p>
+
+    </div>
+
+</div>
+
+        <!-- FEATURES -->
+
+        <div class="info-box">
+
+            <h3>
+                Features
+            </h3>
+
+            <ul>
+
+                <li>
+                    📈 AI-based price forecasting
+                </li>
+
+                <li>
+                    🧠 Deep Learning using LSTM
+                </li>
+
+                <li>
+                    🌾 Multiple commodity support
+                </li>
+
+                <li>
+                    ⚡ Real-time prediction system
+                </li>
+
+                <li>
+                    💹 Retail + Wholesale estimation
+                </li>
+
+            </ul>
+
+        </div>
+        <div class="tips">
+
+    <h3>
+
+        Prediction Tips
+
+    </h3>
+
+    <ul>
+
+        <li>
+            ✅ Use 1–15 days for best accuracy
+        </li>
+
+        <li>
+            ✅ Short-term predictions are more reliable
+        </li>
+
+        <li>
+            ✅ Weather conditions affect market prices
+        </li>
+
+    </ul>
+
+</div>
+
+
+        <!-- FORM -->
+
         <form action="/predict" method="POST">
 
-            <select
-                name="commodity"
-                required
-            >
+            <div class="commodity-buttons">
 
-                <option value="">
+    <input
+        type="radio"
+        id="onion"
+        name="commodity"
+        value="Onion"
+        required
+    >
 
-                    Select Commodity
+    <label for="onion" class="commodity-btn">
 
-                </option>
+        🧅 Onion
 
-                <option value="Onion">
+    </label>
 
-                    Onion
+    <input
+        type="radio"
+        id="brinjal"
+        name="commodity"
+        value="Brinjal"
+    >
 
-                </option>
+    <label for="brinjal" class="commodity-btn">
 
-                <option value="Brinjal">
+        🍆 Brinjal
 
-                    Brinjal
+    </label>
 
-                </option>
+    <input
+        type="radio"
+        id="rice"
+        name="commodity"
+        value="Rice"
+    >
 
-                <option value="Cabbage">
+    <label for="rice" class="commodity-btn">
 
-                    Cabbage
+        🌾 Rice
 
-                </option>
+    </label>
 
-                <option value="Cauliflower">
+    <input
+        type="radio"
+        id="wheat"
+        name="commodity"
+        value="Wheat"
+    >
 
-                    Cauliflower
+    <label for="wheat" class="commodity-btn">
 
-                </option>
+        🌽 Wheat
 
-                <option value="Rice">
+    </label>
 
-                    Rice
+    <input
+        type="radio"
+        id="cabbage"
+        name="commodity"
+        value="Cabbage"
+    >
 
-                </option>
+    <label for="cabbage" class="commodity-btn">
 
-                <option value="Wheat">
+        🥬 Cabbage
 
-                    Wheat
+    </label>
 
-                </option>
+    <input
+        type="radio"
+        id="cauliflower"
+        name="commodity"
+        value="Cauliflower"
+    >
 
-            </select>
+    <label for="cauliflower" class="commodity-btn">
+
+        🥦 Cauliflower
+
+    </label>
+
+</div>
 
             <input
                 type="number"
@@ -86,6 +264,84 @@
                 placeholder="Enter Number of Days"
                 required
             >
+            <p class="warning-text">
+                <div class="accuracy-box">
+
+    <h3>
+
+        Prediction Accuracy Levels
+
+    </h3>
+
+    <div class="accuracy-item good">
+
+        <span>
+            0 – 15 Days
+        </span>
+
+        <span>
+            High Accuracy ✅
+        </span>
+
+    </div>
+
+    <div class="accuracy-item medium">
+
+        <span>
+            15 – 30 Days
+        </span>
+
+        <span>
+            Medium Accuracy ⚠️
+        </span>
+
+    </div>
+
+    <div class="accuracy-item low">
+
+        <span>
+            30 – 100 Days
+        </span>
+
+        <span>
+            Low Accuracy ❌
+        </span>
+
+    </div>
+
+</div>
+                <div class="commodity-section">
+
+    <div class="commodity-card">
+
+        🧅 Onion
+
+    </div>
+
+    <div class="commodity-card">
+
+        🍆 Brinjal
+
+    </div>
+
+    <div class="commodity-card">
+
+        🌾 Rice
+
+    </div>
+
+    <div class="commodity-card">
+
+        🌽 Wheat
+
+    </div>
+
+</div>
+
+    ⚠ Predictions beyond 15 days may become less accurate
+    due to changing market trends and weather conditions.
+
+</p>
 
             <button type="submit">
 
@@ -95,30 +351,139 @@
 
         </form>
 
+        <!-- RESULT -->
+
         {% if prediction %}
 
         <div class="result">
 
             <h2>
 
-                {{ commodity }} predicted wholesale price
-                after {{ days }} days:
-
-                ₹ {{ prediction }} per quintal
+                {{ commodity }} Price Prediction
 
             </h2>
 
-            <h2>
+            <p>
 
-                Approx retail price:
+                Predicted Wholesale Price after
+                {{ days }} days
 
-                ₹ {{ retail_price }} per kg
+            </p>
 
-            </h2>
+            <div class="price">
+
+                ₹ {{ prediction }}
+
+            </div>
+
+            <p>
+
+                per quintal
+
+            </p>
+
+            <hr>
+
+            <h3>
+
+                Approx Retail Price
+
+            </h3>
+
+            <div class="price">
+
+                ₹ {{ retail_price }}/kg
+
+            </div>
 
         </div>
 
         {% endif %}
+
+        <!-- TECH STACK -->
+
+        <div class="tech-stack">
+
+            <h3>
+                Technologies Used
+            </h3>
+
+            <p>
+
+                Flask • PyTorch • Pandas • NumPy •
+                Scikit-learn • HTML • CSS
+
+            </p>
+
+        </div>
+
+        <!-- LIMITATIONS -->
+
+        <div class="limitations">
+
+            <h3>
+                Why predictions are limited?
+            </h3>
+
+            <p>
+
+                The model is trained using historical
+                commodity price data and short-term
+                sequence learning. LSTM models provide
+                more accurate results for short-term
+                forecasting.
+
+            </p>
+
+            <ul>
+
+                <li>
+                    📅 Predictions above 15 days may become less accurate
+                </li>
+
+                <li>
+                    🌧 Weather and market conditions change frequently
+                </li>
+
+                <li>
+                    📊 Model depends on historical trends
+                </li>
+
+                <li>
+                    ⚠ Long-term agricultural prices are highly volatile
+                </li>
+
+            </ul>
+
+        </div>
+
+        <!-- ABOUT -->
+
+        <section id="about">
+            <div class="about">
+
+            <h3>
+                About Project
+            </h3>
+
+            <p>
+
+                This system predicts future agricultural
+                commodity prices using LSTM Deep Learning
+                models trained on historical market data.
+
+            </p>
+
+        </div>
+        </section>
+
+        <!-- FOOTER -->
+
+        <div class="footer">
+
+            Developed using Flask + PyTorch LSTM
+
+        </div>
 
     </div>
 

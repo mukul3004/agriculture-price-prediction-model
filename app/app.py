@@ -7,9 +7,7 @@ import joblib
 
 app = Flask(__name__)
 
-# =========================
-# LSTM MODEL
-# =========================
+# LSTM
 
 class LSTMModel(nn.Module):
 
@@ -37,9 +35,8 @@ class LSTMModel(nn.Module):
         return out
 
 
-# =========================
 # HOME PAGE
-# =========================
+
 
 @app.route('/')
 def home():
@@ -47,9 +44,8 @@ def home():
     return render_template("index.html")
 
 
-# =========================
+
 # PREDICT ROUTE
-# =========================
 
 @app.route('/predict', methods=['POST'])
 def predict():
@@ -57,9 +53,9 @@ def predict():
     commodity = request.form['commodity']
     days = int(request.form['days'])
 
-    # =========================
+
     # LOAD MODEL
-    # =========================
+
 
     model_path = f"models/{commodity.lower()}_lstm_model.pth"
 
@@ -74,17 +70,13 @@ def predict():
 
     model.eval()
 
-    # =========================
     # LOAD SCALER
-    # =========================
 
     scaler_path = f"models/{commodity.lower()}_scaler.save"
 
     scaler = joblib.load(scaler_path)
 
-    # =========================
     # LOAD DATASET
-    # =========================
 
     df = pd.read_csv(
         "data/Price_Agriculture_commodities_Week.csv"
@@ -107,9 +99,8 @@ def predict():
         'Arrival_Date'
     )['Modal Price'].mean().values
 
-    # =========================
     # LAST 3 VALUES
-    # =========================
+  
 
     last_values = price_series[-3:]
 
@@ -119,9 +110,8 @@ def predict():
 
     sequence = scaled_values.reshape(1, 3, 1)
 
-    # =========================
     # FUTURE PREDICTION
-    # =========================
+    
 
     predicted_price = 0
 
@@ -167,10 +157,7 @@ def predict():
         days=days
     )
 
-
-# =========================
 # RUN APP
-# =========================
 
 if __name__ == "__main__":
 
