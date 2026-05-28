@@ -1,68 +1,156 @@
-# 🌾 Agriculture Commodity Price Prediction
+# AgriPredict AI 🌾
 
-A Flask + PyTorch based web application that predicts future wholesale prices of agricultural commodities using LSTM (Long Short-Term Memory) deep learning models.
+AgriPredict AI is a deep learning–based agricultural commodity price forecasting system developed using Flask and PyTorch. The project predicts future wholesale and retail prices of agricultural commodities using historical market data and LSTM (Long Short-Term Memory) neural networks.
 
 ---
 
 ## 🚀 Features
 
-- Predict commodity prices using LSTM neural networks
-- Supports multiple commodities:
-  - Onion
-  - Brinjal
-  - Rice
-  - Wheat
-  - Cabbage
-  - Cauliflower
-- Clean web interface using Flask
-- Retail price estimation per kg
-- Trained PyTorch models for each commodity
+* AI-powered commodity price forecasting
+* Deep learning using LSTM networks
+* Wholesale and retail price estimation
+* Interactive modern UI
+* Real-time prediction generation
+* Multi-commodity support
+* Forecast accuracy guidance system
+* Responsive frontend design
 
 ---
 
-## 🛠️ Tech Stack
+## 📊 Supported Commodities
 
-- Python
-- Flask
-- PyTorch
-- Pandas
-- NumPy
-- Scikit-learn
-- HTML/CSS
+* Onion
+* Rice
+* Wheat
+* Brinjal
+* Cabbage
+* Cauliflower
 
 ---
 
-## 📂 Project Structure
+## 🧠 Technologies Used
+
+### Backend
+
+* Python
+* Flask
+* PyTorch
+* Pandas
+* NumPy
+* Scikit-learn
+
+### Frontend
+
+* HTML5
+* CSS3
+* JavaScript
+
+### Machine Learning
+
+* LSTM Neural Networks
+* Time Series Forecasting
+* MinMaxScaler
+* Sequence Prediction
+
+---
+
+## 📁 Project Structure
 
 ```bash
 CommodityPricePrediction/
 │
 ├── app/
-│   ├── app.py
+│   ├── static/
+│   │   ├── style.css
+│   │   └── script.js
+│   │
 │   ├── templates/
 │   │   └── index.html
-│   └── static/
-│       └── style.css
-│
-├── data/
-│   └── Price_Agriculture_Commodities_Week.csv
-│
-├── models/
-│   ├── onion_lstm_model.pth
-│   ├── onion_scaler.save
-│   ├── brinjal_lstm_model.pth
-│   ├── brinjal_scaler.save
-│   ├── cabbage_lstm_model.pth
-│   ├── cabbage_scaler.save
-│   ├── cauliflower_lstm_model.pth
-│   ├── cauliflower_scaler.save
-│   ├── rice_lstm_model.pth
-│   ├── rice_scaler.save
-│   ├── wheat_lstm_model.pth
-│   └── wheat_scaler.save
+│   │
+│   ├── models/
+│   │   ├── onion_lstm_model.pth
+│   │   ├── rice_lstm_model.pth
+│   │   └── ...
+│   │
+│   ├── data/
+│   │   ├── Onion.csv
+│   │   ├── Rice.csv
+│   │   └── ...
+│   │
+│   └── app.py
 │
 ├── notebooks/
-│   └── lstm_price_prediction.ipynb
-│
-├── requirements.txt
-└── README.md
+├── README.md
+└── requirements.txt
+```
+
+---
+
+## ⚙️ How It Works
+
+1. Historical commodity price data is collected.
+2. Data is cleaned and normalized.
+3. Sequential datasets are generated.
+4. LSTM models are trained on time-series data.
+5. Flask serves the trained model predictions through a web interface.
+6. The application predicts future wholesale and retail prices.
+
+---
+
+## 📈 Forecast Accuracy
+
+| Forecast Range | Accuracy Level  |
+| -------------- | --------------- |
+| 1 – 15 Days    | High Accuracy   |
+| 15 – 30 Days   | Medium Accuracy |
+| 30 – 100 Days  | Lower Accuracy  |
+
+---
+
+## ▶️ Run the Project
+
+### Clone Repository
+
+```bash
+git clone https://github.com/your-username/CommodityPricePrediction.git
+```
+
+### Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+### Run Flask App
+
+```bash
+python app.py
+```
+
+---
+
+## 🌐 Application Preview
+
+* Interactive commodity selection
+* AI-powered price forecasting
+* Wholesale & retail estimation
+* Dynamic accuracy visualization
+* Modern responsive UI
+
+---
+
+## 📌 Future Improvements
+
+* Weather-based forecasting
+* Real-time API integration
+* Advanced transformer models
+* Market-wise predictions
+* Deployment on cloud platforms
+
+---
+
+## 👨‍💻 Author
+
+Mukul Bhamgare**
+
+AI & Machine Learning Project using Flask + PyTorch LSTM.

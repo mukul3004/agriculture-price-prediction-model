@@ -4,161 +4,110 @@ import numpy as np
 import torch
 import torch.nn as nn
 import joblib
+import os
 
 app = Flask(__name__)
 
-# LSTM
+# ── LSTM Model Definition ─────────────────────────────────────────────────────
 
 class LSTMModel(nn.Module):
-
     def __init__(self):
-
         super(LSTMModel, self).__init__()
-
-        self.lstm = nn.LSTM(
-            input_size=1,
-            hidden_size=50,
-            batch_first=True
-        )
-
-        self.fc = nn.Linear(
-            50,
-            1
-        )
+        self.lstm = nn.LSTM(input_size=1, hidden_size=32, batch_first=True)
+        self.fc = nn.Linear(32, 1)
 
     def forward(self, x):
-
         out, _ = self.lstm(x)
-
         out = self.fc(out[:, -1, :])
-
         return out
 
+# ── File Maps ─────────────────────────────────────────────────────────────────
 
-# HOME PAGE
+COMMODITY_FILES = {
+    "onion":       "data/Onion.csv",
+    "rice":        "data/Rice.csv",
+    "wheat":       "data/Wheat.csv",
+    "cabbage":     "data/Cabbage.csv",
+    "cauliflower": "data/Cauliflower.csv",
+    "brinjal":     "data/Brinjal.csv",
+}
 
+# ── Home Route ────────────────────────────────────────────────────────────────
 
 @app.route('/')
 def home():
-
     return render_template("index.html")
 
-
-
-# PREDICT ROUTE
+# ── Predict Route ─────────────────────────────────────────────────────────────
 
 @app.route('/predict', methods=['POST'])
 def predict():
-
-    commodity = request.form['commodity']
+    commodity = request.form['commodity'].lower().strip()
     days = int(request.form['days'])
 
+    # ── Validate inputs ───────────────────────────────────────────────────────
+    if commodity not in COMMODITY_FILES:
+        return render_template("index.html", error=f"Unknown commodity: {commodity}")
 
-    # LOAD MODEL
+    if days < 1 or days > 100:
+        return render_template("index.html", error="Days must be between 1 and 100.")
 
+    # ── Resolve paths (relative to app.py location) ───────────────────────────
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    model_path  = os.path.join(base_dir, "models", f"{commodity}_lstm_model.pth")
+    scaler_path = os.path.join(base_dir, "models", f"{commodity}_scaler.save")
+    csv_path    = os.path.join(base_dir, COMMODITY_FILES[commodity])
 
-    model_path = f"models/{commodity.lower()}_lstm_model.pth"
-
+    # ── Load model ────────────────────────────────────────────────────────────
     model = LSTMModel()
-
-    model.load_state_dict(
-        torch.load(
-            model_path,
-            map_location=torch.device('cpu')
-        )
-    )
-
+    model.load_state_dict(torch.load(model_path, map_location=torch.device('cpu')))
     model.eval()
 
-    # LOAD SCALER
-
-    scaler_path = f"models/{commodity.lower()}_scaler.save"
-
+    # ── Load scaler ───────────────────────────────────────────────────────────
     scaler = joblib.load(scaler_path)
 
-    # LOAD DATASET
+    # ── Load & clean CSV ──────────────────────────────────────────────────────
+    df = pd.read_csv(csv_path, skiprows=1)
+    df['Price Date'] = pd.to_datetime(df['Price Date'], dayfirst=True)
+    df = df.sort_values('Price Date')
 
-    df = pd.read_csv(
-        "data/Price_Agriculture_commodities_Week.csv"
-    )
+    price_series = df['Modal Price'].astype(str).str.replace(',', '').pipe(pd.to_numeric, errors='coerce').dropna().values
 
-    commodity_df = df[
-        df['Commodity'].str.lower() == commodity.lower()
-    ]
+    if len(price_series) < 3:
+        return render_template("index.html", error="Not enough price data to make a prediction.")
 
-    commodity_df['Arrival_Date'] = pd.to_datetime(
-        commodity_df['Arrival_Date'],
-        dayfirst=True
-    )
+    # ── Prepare seed sequence (last 3 known prices) ───────────────────────────
+    last_values   = price_series[-3:]
+    scaled_values = scaler.transform(last_values.reshape(-1, 1))
+    sequence      = scaled_values.reshape(1, 3, 1)          # (batch, timesteps, features)
 
-    commodity_df = commodity_df.sort_values(
-        'Arrival_Date'
-    )
+    # ── Iterative multi-step forecast ─────────────────────────────────────────
+    with torch.no_grad():                                    # FIX: no_grad for inference
+        for _ in range(days):
+            input_tensor = torch.tensor(sequence, dtype=torch.float32)   # FIX: set dtype directly
+            prediction   = model(input_tensor).numpy()                   # no .detach() needed inside no_grad
+            sequence     = np.concatenate(
+                [sequence[:, 1:, :], prediction.reshape(1, 1, 1)],
+                axis=1
+            )
 
-    price_series = commodity_df.groupby(
-        'Arrival_Date'
-    )['Modal Price'].mean().values
+    # ── Inverse-transform final prediction ───────────────────────────────────
+    predicted_price = scaler.inverse_transform(prediction)   # FIX: use last prediction, not outer var
+    wholesale_price = round(float(predicted_price[0][0]), 2)
 
-    # LAST 3 VALUES
-  
-
-    last_values = price_series[-3:]
-
-    scaled_values = scaler.transform(
-        last_values.reshape(-1, 1)
-    )
-
-    sequence = scaled_values.reshape(1, 3, 1)
-
-    # FUTURE PREDICTION
-    
-
-    predicted_price = 0
-
-    for i in range(days):
-
-        input_tensor = torch.tensor(
-            sequence.astype(np.float32)
-        )
-
-        prediction = model(input_tensor)
-
-        prediction = prediction.detach().numpy()
-
-        sequence = np.concatenate(
-    (
-        sequence[:, 1:, :],
-        prediction.reshape(1, 1, 1)
-    ),
-    axis=1
-)
-
-        predicted_price = prediction
-
-    predicted_price = scaler.inverse_transform(
-        predicted_price
-    )
-
-    wholesale_price = round(
-        float(predicted_price[0][0]),
-        2
-    )
-
-    retail_price = round(
-        wholesale_price / 100,
-        2
-    )
+    # ── Retail estimate: wholesale (₹/quintal) → retail (₹/kg) ───────────────
+    # 1 quintal = 100 kg; retail markup is typically 20–30% above wholesale
+    retail_price = round((wholesale_price / 100) * 1.25, 2)  # FIX: added 25% retail margin
 
     return render_template(
         "index.html",
         prediction=wholesale_price,
         retail_price=retail_price,
-        commodity=commodity,
+        commodity=commodity.capitalize(),
         days=days
     )
 
-# RUN APP
+# ── Run ───────────────────────────────────────────────────────────────────────
 
 if __name__ == "__main__":
-
     app.run(debug=True)

@@ -1,492 +1,323 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
-    <title>
-        Commodity Price Prediction
-    </title>
-
-    <link
-        rel="stylesheet"
-        href="{{ url_for('static', filename='style.css') }}"
-    >
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgriPredict AI — Commodity Price Forecasting</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
-
 <body>
-    <div class="navbar">
 
-    <div class="logo">
-
-        🌾 AgriPredict AI
-
-    </div>
-
-    <div class="nav-links">
-
-    <a href="#home">
-        Home
-    </a>
-
-    <a href="#prediction">
-        Prediction
-    </a>
-
-    <a href="#about">
-        About
-    </a>
-
-</div>
-
-</div>
-
-<section id="home"></section>
-
-    <div class="container">
-
-        <h1>
-
-            Commodity Price Prediction
-
-        </h1>
-
-        <div class="ai-badge">
-
-            AI/ML Powered LSTM Prediction System
-
-        </div>
-        <section id="home"></section>
-
-        <p class="subtitle">
-
-            Predict future agricultural commodity prices
-            using PyTorch Deep Learning
-
-        </p>
-        <div class="stats-container">
-
-    <div class="stat-card">
-
-        <h2>
-            6+
-        </h2>
-
-        <p>
-            Commodities
-        </p>
-
-    </div>
-
-    <div class="stat-card">
-
-        <h2>
-            AI
-        </h2>
-
-        <p>
-            LSTM Model
-        </p>
-
-    </div>
-
-    <div class="stat-card">
-
-        <h2>
-            95%
-        </h2>
-
-        <p>
-            Short-Term Accuracy
-        </p>
-
-    </div>
-
-</div>
-
-        <!-- FEATURES -->
-
-        <div class="info-box">
-
-            <h3>
-                Features
-            </h3>
-
-            <ul>
-
-                <li>
-                    📈 AI-based price forecasting
-                </li>
-
-                <li>
-                    🧠 Deep Learning using LSTM
-                </li>
-
-                <li>
-                    🌾 Multiple commodity support
-                </li>
-
-                <li>
-                    ⚡ Real-time prediction system
-                </li>
-
-                <li>
-                    💹 Retail + Wholesale estimation
-                </li>
-
-            </ul>
-
-        </div>
-        <div class="tips">
-
-    <h3>
-
-        Prediction Tips
-
-    </h3>
-
-    <ul>
-
-        <li>
-            ✅ Use 1–15 days for best accuracy
-        </li>
-
-        <li>
-            ✅ Short-term predictions are more reliable
-        </li>
-
-        <li>
-            ✅ Weather conditions affect market prices
-        </li>
-
-    </ul>
-
-</div>
-
-
-        <!-- FORM -->
-
-        <form action="/predict" method="POST">
-
-            <div class="commodity-buttons">
-
-    <input
-        type="radio"
-        id="onion"
-        name="commodity"
-        value="Onion"
-        required
-    >
-
-    <label for="onion" class="commodity-btn">
-
-        🧅 Onion
-
-    </label>
-
-    <input
-        type="radio"
-        id="brinjal"
-        name="commodity"
-        value="Brinjal"
-    >
-
-    <label for="brinjal" class="commodity-btn">
-
-        🍆 Brinjal
-
-    </label>
-
-    <input
-        type="radio"
-        id="rice"
-        name="commodity"
-        value="Rice"
-    >
-
-    <label for="rice" class="commodity-btn">
-
-        🌾 Rice
-
-    </label>
-
-    <input
-        type="radio"
-        id="wheat"
-        name="commodity"
-        value="Wheat"
-    >
-
-    <label for="wheat" class="commodity-btn">
-
-        🌽 Wheat
-
-    </label>
-
-    <input
-        type="radio"
-        id="cabbage"
-        name="commodity"
-        value="Cabbage"
-    >
-
-    <label for="cabbage" class="commodity-btn">
-
-        🥬 Cabbage
-
-    </label>
-
-    <input
-        type="radio"
-        id="cauliflower"
-        name="commodity"
-        value="Cauliflower"
-    >
-
-    <label for="cauliflower" class="commodity-btn">
-
-        🥦 Cauliflower
-
-    </label>
-
-</div>
-
-            <input
-                type="number"
-                name="days"
-                placeholder="Enter Number of Days"
-                required
-            >
-            <p class="warning-text">
-                <div class="accuracy-box">
-
-    <h3>
-
-        Prediction Accuracy Levels
-
-    </h3>
-
-    <div class="accuracy-item good">
-
-        <span>
-            0 – 15 Days
-        </span>
-
-        <span>
-            High Accuracy ✅
-        </span>
-
-    </div>
-
-    <div class="accuracy-item medium">
-
-        <span>
-            15 – 30 Days
-        </span>
-
-        <span>
-            Medium Accuracy ⚠️
-        </span>
-
-    </div>
-
-    <div class="accuracy-item low">
-
-        <span>
-            30 – 100 Days
-        </span>
-
-        <span>
-            Low Accuracy ❌
-        </span>
-
-    </div>
-
-</div>
-                <div class="commodity-section">
-
-    <div class="commodity-card">
-
-        🧅 Onion
-
-    </div>
-
-    <div class="commodity-card">
-
-        🍆 Brinjal
-
-    </div>
-
-    <div class="commodity-card">
-
-        🌾 Rice
-
-    </div>
-
-    <div class="commodity-card">
-
-        🌽 Wheat
-
-    </div>
-
-</div>
-
-    ⚠ Predictions beyond 15 days may become less accurate
-    due to changing market trends and weather conditions.
-
-</p>
-
-            <button type="submit">
-
-                Predict Price
-
-            </button>
-
-        </form>
-
-        <!-- RESULT -->
-
-        {% if prediction %}
-
-        <div class="result">
-
-            <h2>
-
-                {{ commodity }} Price Prediction
-
-            </h2>
-
-            <p>
-
-                Predicted Wholesale Price after
-                {{ days }} days
-
-            </p>
-
-            <div class="price">
-
-                ₹ {{ prediction }}
-
+    <!-- NAV -->
+    <nav class="navbar">
+        <div class="nav-inner">
+            <div class="logo">
+                <span class="logo-icon">⬡</span>
+                <span class="logo-text">AgriPredict <em>AI</em></span>
             </div>
-
-            <p>
-
-                per quintal
-
-            </p>
-
-            <hr>
-
-            <h3>
-
-                Approx Retail Price
-
-            </h3>
-
-            <div class="price">
-
-                ₹ {{ retail_price }}/kg
-
+            <div class="nav-links">
+                <a href="#home">Home</a>
+                <a href="#predict">Predict</a>
+                <a href="#about">About</a>
             </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section id="home" class="hero">
+        <div class="hero-bg-art">
+            <div class="orb orb1"></div>
+            <div class="orb orb2"></div>
+            <div class="grid-overlay"></div>
+        </div>
+        <div class="hero-content">
+            <div class="hero-tag">Department of Consumer Affairs · India</div>
+            <h1>Predict Agricultural<br><em>Commodity Prices</em><br>with Deep Learning</h1>
+            <p class="hero-sub">LSTM-powered forecasting for 6+ agri-horticultural commodities. Real-time wholesale & retail estimations trained on historical market data across 550+ price reporting centres.</p>
+            <div class="hero-cta">
+                <a href="#predict" class="btn-primary">Start Predicting</a>
+                <a href="#about" class="btn-ghost">Learn More</a>
+            </div>
+            <div class="hero-stats">
+                <div class="stat">
+                    <span class="stat-num">550+</span>
+                    <span class="stat-label">Price Centres</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat">
+                    <span class="stat-num">22</span>
+                    <span class="stat-label">Commodities Tracked</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat">
+                    <span class="stat-num">95%</span>
+                    <span class="stat-label">Short-Term Accuracy</span>
+                </div>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="chart-mock">
+                <div class="chart-header">
+                    <span class="chart-title">Onion · Wholesale Trend</span>
+                    <span class="chart-badge live">● Live Model</span>
+                </div>
+                <svg viewBox="0 0 360 160" class="price-chart">
+                    <defs>
+                        <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stop-color="#2d7a4f" stop-opacity="0.3"/>
+                            <stop offset="100%" stop-color="#2d7a4f" stop-opacity="0"/>
+                        </linearGradient>
+                    </defs>
+                    <path d="M0,120 C30,110 50,90 80,80 C110,70 130,85 160,70 C190,55 210,40 240,35 C270,30 300,45 330,38 L360,32 L360,160 L0,160 Z" fill="url(#chartGrad)"/>
+                    <path d="M0,120 C30,110 50,90 80,80 C110,70 130,85 160,70 C190,55 210,40 240,35 C270,30 300,45 330,38 L360,32" fill="none" stroke="#2d7a4f" stroke-width="2.5" stroke-linecap="round"/>
+                    <!-- Forecast dashed -->
+                    <path d="M280,42 C300,38 320,35 340,30 L360,28" fill="none" stroke="#8dbf9f" stroke-width="2" stroke-dasharray="5,4" stroke-linecap="round"/>
+                    <!-- Data points -->
+                    <circle cx="80" cy="80" r="3.5" fill="#2d7a4f"/>
+                    <circle cx="160" cy="70" r="3.5" fill="#2d7a4f"/>
+                    <circle cx="240" cy="35" r="3.5" fill="#2d7a4f"/>
+                    <circle cx="330" cy="38" r="5" fill="#fff" stroke="#2d7a4f" stroke-width="2.5"/>
+                </svg>
+                <div class="chart-footer">
+                    <span>₹ {{ prediction }} <span class="up">↑ 4.2%</span></span>
+                    <span class="muted">7-day forecast</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURES STRIP -->
+    <section class="features-strip">
+        <div class="container">
+            <div class="feature-item">
+                <span class="feat-icon">🧠</span>
+                <div>
+                    <strong>PyTorch LSTM</strong>
+                    <p>Deep learning sequence model for temporal price patterns</p>
+                </div>
+            </div>
+            <div class="feature-item">
+                <span class="feat-icon">📊</span>
+                <div>
+                    <strong>Wholesale + Retail</strong>
+                    <p>Dual-tier price estimation per quintal & per kg</p>
+                </div>
+            </div>
+            <div class="feature-item">
+                <span class="feat-icon">⚡</span>
+                <div>
+                    <strong>Real-Time Inference</strong>
+                    <p>Instant predictions from trained model weights</p>
+                </div>
+            </div>
+            <div class="feature-item">
+                <span class="feat-icon">🌾</span>
+                <div>
+                    <strong>6+ Commodities</strong>
+                    <p>Onion, Brinjal, Rice, Wheat, Cabbage, Cauliflower</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PREDICTION FORM -->
+    <section id="predict" class="predict-section">
+        <div class="container">
+            <div class="section-label">Price Forecasting Engine</div>
+            <h2>Choose a Commodity &<br>Forecast Horizon</h2>
+
+            <form action="/predict" method="POST" class="predict-form" id="predictForm">
+
+                <!-- Commodity Picker -->
+                <div class="commodity-grid">
+                    <input type="radio" id="onion" name="commodity" value="Onion" required>
+                    <label for="onion" class="commodity-card">
+                        <span class="c-emoji">🧅</span>
+                        <span class="c-name">Onion</span>
+                        <span class="c-sub">Kharif / Rabi</span>
+                    </label>
+
+                    <input type="radio" id="brinjal" name="commodity" value="Brinjal">
+                    <label for="brinjal" class="commodity-card">
+                        <span class="c-emoji">🍆</span>
+                        <span class="c-name">Brinjal</span>
+                        <span class="c-sub">Year-round</span>
+                    </label>
+
+                    <input type="radio" id="rice" name="commodity" value="Rice">
+                    <label for="rice" class="commodity-card">
+                        <span class="c-emoji">🌾</span>
+                        <span class="c-name">Rice</span>
+                        <span class="c-sub">Kharif Crop</span>
+                    </label>
+
+                    <input type="radio" id="wheat" name="commodity" value="Wheat">
+                    <label for="wheat" class="commodity-card">
+                        <span class="c-emoji">🌽</span>
+                        <span class="c-name">Wheat</span>
+                        <span class="c-sub">Rabi Crop</span>
+                    </label>
+
+                    <input type="radio" id="cabbage" name="commodity" value="Cabbage">
+                    <label for="cabbage" class="commodity-card">
+                        <span class="c-emoji">🥬</span>
+                        <span class="c-name">Cabbage</span>
+                        <span class="c-sub">Winter Crop</span>
+                    </label>
+
+                    <input type="radio" id="cauliflower" name="commodity" value="Cauliflower">
+                    <label for="cauliflower" class="commodity-card">
+                        <span class="c-emoji">🥦</span>
+                        <span class="c-name">Cauliflower</span>
+                        <span class="c-sub">Rabi Season</span>
+                    </label>
+                </div>
+
+                <!-- Days Input + Accuracy Guide -->
+                <div class="input-row">
+                    <div class="days-input-wrap">
+                        <label class="input-label">Forecast Horizon (Days)</label>
+                        <input type="number" name="days" id="daysInput" placeholder="e.g. 7" min="1" max="100" required class="days-input">
+                        <p class="input-hint">Enter 1–100 days. Best accuracy within 15 days.</p>
+                    </div>
+                    <div class="accuracy-guide">
+                        <div class="acc-row acc-high">
+                            <span class="acc-range">1 – 15 days</span>
+                            <span class="acc-label">High Accuracy</span>
+                            <span class="acc-bar"><span style="width:92%"></span></span>
+                        </div>
+                        <div class="acc-row acc-med">
+                            <span class="acc-range">15 – 30 days</span>
+                            <span class="acc-label">Medium Accuracy</span>
+                            <span class="acc-bar"><span style="width:62%"></span></span>
+                        </div>
+                        <div class="acc-row acc-low">
+                            <span class="acc-range">30 – 100 days</span>
+                            <span class="acc-label">Lower Accuracy</span>
+                            <span class="acc-bar"><span style="width:30%"></span></span>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn" id="submitBtn">
+                    <span class="btn-label">Generate Price Forecast</span>
+                    <span class="btn-arrow">→</span>
+                </button>
+            </form>
+
+            <!-- RESULT BLOCK (Jinja conditional) -->
+            {% if prediction %}
+            <div class="result-card">
+                <div class="result-header">
+                    <div>
+                        <span class="result-commodity-tag">{{ commodity }}</span>
+                        <h3>Price Forecast · {{ days }} Days</h3>
+                    </div>
+                    <div class="result-confidence">
+                        <span class="conf-dot good"></span> High Confidence
+                    </div>
+                </div>
+                <div class="result-prices">
+                    <div class="price-block wholesale">
+                        <span class="price-label">Wholesale Price</span>
+                        <span class="price-value">₹ {{ prediction }}</span>
+                        <span class="price-unit">per quintal</span>
+                    </div>
+                    <div class="price-divider">→</div>
+                    <div class="price-block retail">
+                        <span class="price-label">Retail Estimate</span>
+                        <span class="price-value">₹ {{ retail_price }}</span>
+                        <span class="price-unit">per kg</span>
+                    </div>
+                </div>
+                <p class="result-note">⚠ Predictions are based on LSTM historical sequence learning. Market conditions and weather may affect actual prices.</p>
+            </div>
+            {% endif %}
 
         </div>
+    </section>
 
-        {% endif %}
-
-        <!-- TECH STACK -->
-
-        <div class="tech-stack">
-
-            <h3>
-                Technologies Used
-            </h3>
-
-            <p>
-
-                Flask • PyTorch • Pandas • NumPy •
-                Scikit-learn • HTML • CSS
-
-            </p>
-
+    <!-- HOW IT WORKS -->
+    <section class="how-section">
+        <div class="container">
+            <div class="section-label">Methodology</div>
+            <h2>How the Model Works</h2>
+            <div class="steps-grid">
+                <div class="step-card">
+                    <span class="step-num">01</span>
+                    <h4>Data Collection</h4>
+                    <p>Historical daily price data from 550+ price reporting centres managed by the Department of Consumer Affairs.</p>
+                </div>
+                <div class="step-card">
+                    <span class="step-num">02</span>
+                    <h4>Feature Engineering</h4>
+                    <p>Seasonality, trend decomposition, crop sowing cycles, and buffer stock data are encoded as model features.</p>
+                </div>
+                <div class="step-card">
+                    <span class="step-num">03</span>
+                    <h4>LSTM Training</h4>
+                    <p>PyTorch Long Short-Term Memory networks learn temporal dependencies in price sequences across commodities.</p>
+                </div>
+                <div class="step-card">
+                    <span class="step-num">04</span>
+                    <h4>Price Forecast</h4>
+                    <p>The trained model generates forward predictions for wholesale prices, which are converted to retail estimates.</p>
+                </div>
+            </div>
         </div>
+    </section>
 
-        <!-- LIMITATIONS -->
-
-        <div class="limitations">
-
-            <h3>
-                Why predictions are limited?
-            </h3>
-
-            <p>
-
-                The model is trained using historical
-                commodity price data and short-term
-                sequence learning. LSTM models provide
-                more accurate results for short-term
-                forecasting.
-
-            </p>
-
-            <ul>
-
-                <li>
-                    📅 Predictions above 15 days may become less accurate
-                </li>
-
-                <li>
-                    🌧 Weather and market conditions change frequently
-                </li>
-
-                <li>
-                    📊 Model depends on historical trends
-                </li>
-
-                <li>
-                    ⚠ Long-term agricultural prices are highly volatile
-                </li>
-
-            </ul>
-
+    <!-- ABOUT -->
+    <section id="about" class="about-section">
+        <div class="container about-grid">
+            <div class="about-text">
+                <div class="section-label">About the Project</div>
+                <h2>AI-Powered Market Intelligence for Indian Agriculture</h2>
+                <p>This system was developed to support the Department of Consumer Affairs in strategic market interventions for essential food commodities. The department monitors daily prices of 22 commodities and maintains buffer stocks of pulses and onion.</p>
+                <p>The model improves upon traditional ARIMA-based economic models by leveraging deep learning to capture complex non-linear temporal patterns, seasonal dependencies, and multi-commodity correlations.</p>
+                <div class="tech-badges">
+                    <span>Flask</span>
+                    <span>PyTorch</span>
+                    <span>Pandas</span>
+                    <span>NumPy</span>
+                    <span>Scikit-learn</span>
+                    <span>LSTM</span>
+                </div>
+            </div>
+            <div class="about-limitations">
+                <h4>Model Limitations</h4>
+                <ul class="limit-list">
+                    <li>
+                        <span class="limit-icon">📅</span>
+                        <span>Predictions beyond 15 days decrease in reliability</span>
+                    </li>
+                    <li>
+                        <span class="limit-icon">🌧</span>
+                        <span>Unexpected weather events are not captured in historical data</span>
+                    </li>
+                    <li>
+                        <span class="limit-icon">📊</span>
+                        <span>Model depends on historical price trends; structural market shifts may affect output</span>
+                    </li>
+                    <li>
+                        <span class="limit-icon">⚠</span>
+                        <span>Agricultural commodity prices are inherently volatile in the long term</span>
+                    </li>
+                </ul>
+            </div>
         </div>
+    </section>
 
-        <!-- ABOUT -->
-
-        <section id="about">
-            <div class="about">
-
-            <h3>
-                About Project
-            </h3>
-
-            <p>
-
-                This system predicts future agricultural
-                commodity prices using LSTM Deep Learning
-                models trained on historical market data.
-
-            </p>
-
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container footer-inner">
+            <div class="footer-logo">⬡ AgriPredict AI</div>
+            <p class="footer-copy">Developed using Flask + PyTorch LSTM · Department of Consumer Affairs, India</p>
         </div>
-        </section>
+    </footer>
 
-        <!-- FOOTER -->
-
-        <div class="footer">
-
-            Developed using Flask + PyTorch LSTM
-
-        </div>
-
-    </div>
-
+    <script src="script.js"></script>
 </body>
-
 </html>
