@@ -151,6 +151,6 @@ python app.py
 
 ## 👨‍💻 Author
 
-Mukul Bhamgare**
+**Mukul Bhamgare**
 
 AI & Machine Learning Project using Flask + PyTorch LSTM.
