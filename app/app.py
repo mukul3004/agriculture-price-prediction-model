@@ -8,7 +8,7 @@ import os
 
 app = Flask(__name__)
 
-# ── LSTM Model Definition ─────────────────────────────────────────────────────
+# ── LSTM Model Definition 
 
 class LSTMModel(nn.Module):
     def __init__(self):
@@ -21,7 +21,7 @@ class LSTMModel(nn.Module):
         out = self.fc(out[:, -1, :])
         return out
 
-# ── File Maps ─────────────────────────────────────────────────────────────────
+# ── File Maps
 
 COMMODITY_FILES = {
     "onion":       "data/Onion.csv",
@@ -29,11 +29,10 @@ COMMODITY_FILES = {
     "wheat":       "data/Wheat.csv",
     "cabbage":     "data/Cabbage.csv",
     "cauliflower": "data/Cauliflower.csv",
-    "brinjal":     "data/Brinjal.csv",
+    "brinjal":     "data/brinjal.csv",
 }
 
-# ── Home Route ────────────────────────────────────────────────────────────────
-
+# ── Home Route 
 @app.route('/')
 def home():
     return render_template("index.html")
@@ -57,6 +56,14 @@ def predict():
     model_path  = os.path.join(base_dir, "models", f"{commodity}_lstm_model.pth")
     scaler_path = os.path.join(base_dir, "models", f"{commodity}_scaler.save")
     csv_path    = os.path.join(base_dir, COMMODITY_FILES[commodity])
+    if not os.path.exists(csv_path):
+        alt_path = os.path.join(base_dir, "data", f"{commodity.capitalize()}.csv")
+        if os.path.exists(alt_path):
+            csv_path = alt_path
+        else:
+            alt_path_lower = os.path.join(base_dir, "data", f"{commodity.lower()}.csv")
+            if os.path.exists(alt_path_lower):
+                csv_path = alt_path_lower
 
     # ── Load model ────────────────────────────────────────────────────────────
     model = LSTMModel()
@@ -110,4 +117,5 @@ def predict():
 # ── Run ───────────────────────────────────────────────────────────────────────
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port, debug=False)
